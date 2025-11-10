@@ -48,8 +48,8 @@ def collatz_sequence(n, max_tries=None):
 # Example usage
 
 def log_sequence(n, max_tries=None, ):
-    os.makedirs('collatz_calcs', exist_ok=True)
-    filename=f'collatz_calcs/collatz_log_for_{n}.csv'
+    os.makedirs('./collatz_calcs', exist_ok=True)
+    filename=f'./collatz_calcs/collatz_log_for_{n}.csv'
     with open(filename, 'w') as f:
         # f.write(f"\nTesting {n} (max tries: {max_tries}):\n")
         
@@ -84,6 +84,7 @@ def build_graph(itr):
         if G.has_node(i):
             continue
         add_to_graph(i)
+        log_sequence(i)
     
     return G
 
@@ -124,5 +125,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    log_sequence(int(input("Enter number: \n")))
 

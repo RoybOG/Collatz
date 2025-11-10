@@ -1,7 +1,7 @@
 from ete3 import Tree, TextFace, TreeStyle, add_face_to_node
 import networkx as nx
 from collatz import collatz_sequence,build_graph,interpret_input
-
+import os
 
 def nx_to_newick(G):
     """
@@ -61,7 +61,7 @@ def dual_label_layout(node):
         # Add the custom face immediately to the right of the name (column=1)
         add_face_to_node(mod_face, node, column=1, position="branch-right")
 
-def draw_tree_with_dual_labels(ete_tree):
+def get_tree_style_for_labels(ete_tree):
     # 1. Define the TreeStyle
     ts = TreeStyle()
     
@@ -73,15 +73,17 @@ def draw_tree_with_dual_labels(ete_tree):
     ts.show_leaf_name = False # Disable default names so we control their placement
     ts.mode = "r" 
 
+    return ts
     # 2. Show the tree
-    ete_tree.show(tree_style=ts)
+    
 
 
-def drawGraph(G):  
+def drawGraph(G,prompt="t"):  
 # --- Setup Example Data ---
 # Create a tree (the names are the numbers)
     t = nx_to_newick(G)
-
+    os.makedirs('./collatz_graph', exist_ok=True)
+    filename=f'./collatz_graph/{prompt}.svg'
     # Traverse and assign the custom 'mod6' property to each node
     for node in t.traverse("levelorder"):
         try:
@@ -92,12 +94,13 @@ def drawGraph(G):
             # Handle cases where internal node names aren't numbers (e.g., empty or "I1")
             node.add_features(mod6='-') 
 
-
-
-
-    draw_tree_with_dual_labels(t)
+    ts = get_tree_style_for_labels(t)
+    t.render(filename,tree_style=ts)
+    t.show(tree_style=ts)
+    
 
 
 if __name__ == "__main__":
-    drawGraph(interpret_input("-50"))
+    prompt = '3-40'#'3,9,15,21,33,39,27'#input("Enter number: \n")
+    drawGraph(interpret_input(prompt),prompt)
     #nx_to_newick(G)
