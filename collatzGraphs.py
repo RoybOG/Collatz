@@ -107,7 +107,7 @@ def generate_mermaid_code(g,prompt,sideInfos=None):
     
     def getNodeDetails(n):
         
-        s = f'["`###{n}'
+        s = f'["`**{n}**'
         
         if sideInfos:
             for title, f in sideInfos.items():
@@ -120,9 +120,7 @@ def generate_mermaid_code(g,prompt,sideInfos=None):
     getNodeText = lambda n: getNodeID(n)+ ("" if g.nodes[node].get("detailedInCode",False) else getNodeDetails(n))
 
 
-    mermaid_code = """https://mermaidviewer.com/editor
-    
-    ---
+    mermaid_code = """---
 config:
    flowchart:
     nodeSpacing: 100
