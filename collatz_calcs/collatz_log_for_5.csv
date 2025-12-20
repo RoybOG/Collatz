@@ -1,0 +1,7 @@
+index, number, factorization, distance from power of 2, reminder mod 4, is peak
+0, 5, 5^1, 1, 1, 
+1, 16, 2^4, 0, 0,  peak
+2, 8, 2^3, 0, 0,  peak
+3, 4, 2^2, 0, 0,  peak
+4, 2, 2^1, 0, 2, 
+5, 1, , 0, 1, 

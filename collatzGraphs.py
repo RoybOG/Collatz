@@ -83,7 +83,7 @@ def drawGraph(G,prompt="t"):
 # Create a tree (the names are the numbers)
     t = nx_to_newick(G)
     os.makedirs('./collatz_graph', exist_ok=True)
-    filename=f'./collatz_graph/{prompt}.svg'
+    filename=f'./collatz_graph/{prompt}.nw' #.svg'
     # Traverse and assign the custom 'mod6' property to each node
     for node in t.traverse("levelorder"):
         try:
@@ -95,12 +95,62 @@ def drawGraph(G,prompt="t"):
             node.add_features(mod6='-') 
 
     ts = get_tree_style_for_labels(t)
-    t.render(filename,tree_style=ts)
+    # t.render(filename,tree_style=ts)
+    t.write(format=8, outfile=filename)
     t.show(tree_style=ts)
     
 
+def generate_mermaid_code(g,prompt,sideInfos=None):
+    
+    
+    getNodeID = lambda nodeNum: f'n{str(nodeNum)}'
+    
+    def getNodeDetails(n):
+        
+        s = f'["`###{n}'
+        
+        if sideInfos:
+            for title, f in sideInfos.items():
+                s = s + f'\n**{title}**: {f(n)}'
+        
+        s = s +'`"]'
+        g.nodes[n]["detailedInCode"]=True
+        return s
+
+    getNodeText = lambda n: getNodeID(n)+ ("" if g.nodes[node].get("detailedInCode",False) else getNodeDetails(n))
+
+
+    mermaid_code = """https://mermaidviewer.com/editor
+    
+    ---
+config:
+   flowchart:
+    nodeSpacing: 100
+    rankSpacing: 120
+---
+flowchart TD
+"""
+    mermaid_code =mermaid_code + f'\n{getNodeID(1)+getNodeDetails(1)}'
+
+
+    for node in g: 
+        print(f'{node}->{list(g.neighbors(node))}')
+        for niehgbour in g.neighbors(node):
+            mermaid_code += f'\n{getNodeText(node)}-->{getNodeText(niehgbour)}'
+
+    os.makedirs('./collatz_graph', exist_ok=True)
+    filename=f'./collatz_graph/{prompt}.mmd' #.svg'
+    with open(filename, "w") as f:
+        f.write(mermaid_code)
+        
+        
 
 if __name__ == "__main__":
-    prompt = '3-40'#'3,9,15,21,33,39,27'#input("Enter number: \n")
+    prompt = '3-26'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
+    #
+    generate_mermaid_code(interpret_input(prompt),prompt, {"mod 6":lambda n: n%6})
     drawGraph(interpret_input(prompt),prompt)
+    
     #nx_to_newick(G)
+
+
