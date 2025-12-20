@@ -100,7 +100,7 @@ def drawGraph(G,prompt="t"):
     t.show(tree_style=ts)
     
 
-def generate_mermaid_code(g,prompt,sideInfos=None):
+def generate_mermaid_code(g,prompt,sideInfos=None, determineColor=None):
     
     
     getNodeID = lambda nodeNum: f'n{str(nodeNum)}'
@@ -111,9 +111,15 @@ def generate_mermaid_code(g,prompt,sideInfos=None):
         
         if sideInfos:
             for title, f in sideInfos.items():
-                s = s + f'\n**{title}**: {f(n)}'
+                s = s + f'\n**{title}**: {f(n, g)}'
         
         s = s +'`"]'
+
+        if determineColor:
+           c = determineColor(n,g)
+           if c:
+               s = s + f':::{c}'
+
         g.nodes[n]["detailedInCode"]=True
         return s
 
@@ -127,6 +133,9 @@ config:
     rankSpacing: 120
 ---
 flowchart TD
+classDef red stroke:red,stroke-width: 3px;
+classDef green stroke:green,stroke-width: 3px;
+classDef blue stroke:blue,stroke-width: 3px;
 """
     mermaid_code =mermaid_code + f'\n{getNodeID(1)+getNodeDetails(1)}'
 
@@ -136,17 +145,19 @@ flowchart TD
         for niehgbour in g.neighbors(node):
             mermaid_code += f'\n{getNodeText(node)}-->{getNodeText(niehgbour)}'
 
-    os.makedirs('./collatz_graph', exist_ok=True)
-    filename=f'./collatz_graph/{prompt}.mmd' #.svg'
+    os.makedirs('./mermaid_graphs', exist_ok=True)
+    filename=f'./mermaid_graphs/{prompt}.mmd' #.svg'
     with open(filename, "w") as f:
         f.write(mermaid_code)
         
         
 
 if __name__ == "__main__":
-    prompt = '3-26'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
+    prompt = '11'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
     #
-    generate_mermaid_code(interpret_input(prompt),prompt, {"mod 6":lambda n: n%6})
+    generate_mermaid_code(interpret_input(prompt),prompt, 
+                        #   {"mod 6":lambda n,g: n%6}, 
+                         determineColor= lambda n,g: 'green' if n%2 else '')
     drawGraph(interpret_input(prompt),prompt)
     
     #nx_to_newick(G)
