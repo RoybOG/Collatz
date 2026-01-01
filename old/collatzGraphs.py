@@ -1,6 +1,6 @@
 from ete3 import Tree, TextFace, TreeStyle, add_face_to_node
 import networkx as nx
-from collatz import collatz_sequence,build_graph,interpret_input
+from old.collatz import collatz_sequence,build_graph,interpret_input
 import os
 
 def nx_to_newick(G):
@@ -146,19 +146,19 @@ classDef blue stroke:blue,stroke-width: 3px;
             mermaid_code += f'\n{getNodeText(node)}-->{getNodeText(niehgbour)}'
 
     os.makedirs('./mermaid_graphs', exist_ok=True)
-    filename=f'./mermaid_graphs/{prompt}.mmd' #.svg'
+    filename=f'./mermaid_graphs/{prompt}({", ".join(sideInfos.keys()) if isinstance(sideInfos, dict) else ""}).mmd' #.svg'
     with open(filename, "w") as f:
         f.write(mermaid_code)
         
         
 
 if __name__ == "__main__":
-    prompt = '11'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
+    prompt = '22'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
     #
     generate_mermaid_code(interpret_input(prompt),prompt, 
                         #   {"mod 6":lambda n,g: n%6}, 
                          determineColor= lambda n,g: 'green' if n%2 else '')
-    drawGraph(interpret_input(prompt),prompt)
+    #drawGraph(interpret_input(prompt),prompt)
     
     #nx_to_newick(G)
 

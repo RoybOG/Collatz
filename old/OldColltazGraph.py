@@ -1,7 +1,7 @@
 import networkx as nx
 
 import matplotlib.pyplot as plt
-from collatz import collatz_sequence,build_graph
+from old.collatz import collatz_sequence,build_graph
 import re 
 import EoN
 import numpy as np
