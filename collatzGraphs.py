@@ -1,10 +1,11 @@
-from ete3 import Tree, TextFace, TreeStyle, add_face_to_node
+#from ete3 import Tree, TextFace, TreeStyle, add_face_to_node
 import networkx as nx
 from collatz import collatz_sequence,build_graph,interpret_input
 import os
 
+"""
 def nx_to_newick(G):
-    """
+    
     Converts a NetworkX tree/DAG (DiGraph) to a Newick string.
 
     Args:
@@ -13,7 +14,7 @@ def nx_to_newick(G):
         
     Returns:
         str: The Newick formatted string.
-    """
+    
     root=1
 
     eteTree = Tree(name=1)
@@ -33,10 +34,10 @@ def nx_to_newick(G):
     # 1. Initialize the root node for the ETE tree
 
 def dual_label_layout(node):
-    """
+    
     Layout function that adds the node's name (in blue) and a custom 
     property (mod6, in red) next to the node.
-    """
+    
     
     # --- Part 1: Display the Main Node Name ---
     
@@ -99,7 +100,7 @@ def drawGraph(G,prompt="t"):
     t.write(format=8, outfile=filename)
     t.show(tree_style=ts)
     
-
+"""
 def generate_mermaid_code(g,prompt,sideInfos=None, determineColor=None):
     
     
@@ -150,15 +151,26 @@ classDef blue stroke:blue,stroke-width: 3px;
     with open(filename, "w") as f:
         f.write(mermaid_code)
         
-        
+
+def color_mod(n,g):
+    match n%6:
+
+        case 1:
+            return 'green'
+        case 5:
+            return 'red'
+    
+    return ''
+
+                 
 
 if __name__ == "__main__":
-    prompt = '11'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
+    prompt = '28-50'  #'3,9,15,21,33,39,27'#input("Enter number: \n")
     #
     generate_mermaid_code(interpret_input(prompt),prompt, 
-                        #   {"mod 6":lambda n,g: n%6}, 
+                           {"mod 6":lambda n,g: n%6}, 
                          determineColor= lambda n,g: 'green' if n%2 else '')
-    drawGraph(interpret_input(prompt),prompt)
+    #drawGraph(interpret_input(prompt),prompt)
     
     #nx_to_newick(G)
 

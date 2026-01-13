@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.css"
+          />
+    <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.controls.css"
+          />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+      #myPanzoom {
+        /* max-width: 640px; */
+        height: 100%;
+        background: #eee;
+        overflow:scroll;
+      }
+	  .f-controls {
+			position: sticky;
+	  }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="f-panzoom" id="myPanzoom">
+        <div id="graphDiv">
+
+        </div>
+      </div>
+    </div>
+       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.controls.umd.js"></script>
+
+    <script>
+      mermaid.initialize({ startOnLoad: false });
+
+      async function draw() {
+        const container = document.getElementById('graphDiv');
+        const graphDefinition = `
+        graph LR
+        A --- B
+        B-->C[fa:fa-ban forbidden]
+        B-->D(fa:fa-spinner);`;
+        // give mermaid a unique id for the generated svg
+        const { svg } = await mermaid.render('mermaidSvg', graphDefinition);
+
+       
+        container.innerHTML = svg;
+        container.classList.add("f-panzoom__content")
+
+        // init Panzoom AFTER SVG is in the DOM
+        Panzoom(document.getElementById("myPanzoom"), { 
+        // Your custom options
+        Controls : {
+          display: [
+            "zoomIn",
+            "zoomOut",
+            
+            "moveLeft",
+            "moveRight",
+            "moveUp",
+            "moveDown",
+            "reset",
+            "toggleFS"
+          ]
+        }
+      }, {
+        Controls
+      }).init();
+      }
+
+      draw().catch(console.error);
+    </script>
+  </body>
+</html>

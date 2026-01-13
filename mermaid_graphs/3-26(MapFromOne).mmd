@@ -1,0 +1,145 @@
+---
+config:
+   flowchart:
+    nodeSpacing: 100
+    rankSpacing: 120
+---
+flowchart TD
+classDef red stroke:red,stroke-width: 3px;
+classDef green stroke:green,stroke-width: 3px;
+classDef blue stroke:blue,stroke-width: 3px;
+
+n1["`**1**
+`"]:::green
+n2["`**2**
+
+**MapFromOne**: [1]`"]-->n1
+n4["`**4**
+
+**MapFromOne**: [2]`"]-->n2
+n8["`**8**
+
+**MapFromOne**: [3]`"]-->n4
+n16["`**16**
+
+**MapFromOne**: [4]`"]-->n8
+n5["`**5**
+
+**MapFromOne**: [4, 0]`"]:::green-->n16
+n10["`**10**
+
+**MapFromOne**: [4, 1]`"]-->n5
+n3["`**3**
+
+**MapFromOne**: [4, 1, 0]`"]:::green-->n10
+n6["`**6**
+
+**MapFromOne**: [4, 1, 1]`"]-->n3
+n20["`**20**
+
+**MapFromOne**: [4, 2]`"]-->n10
+n40["`**40**
+
+**MapFromOne**: [4, 3]`"]-->n20
+n13["`**13**
+
+**MapFromOne**: [4, 3, 0]`"]:::green-->n40
+n26["`**26**
+
+**MapFromOne**: [4, 3, 1]`"]-->n13
+n52["`**52**
+
+**MapFromOne**: [4, 3, 2]`"]-->n26
+n17["`**17**
+
+**MapFromOne**: [4, 3, 2, 0]`"]:::green-->n52
+n34["`**34**
+
+**MapFromOne**: [4, 3, 2, 1]`"]-->n17
+n11["`**11**
+
+**MapFromOne**: [4, 3, 2, 1, 0]`"]:::green-->n34
+n22["`**22**
+
+**MapFromOne**: [4, 3, 2, 1, 1]`"]-->n11
+n7["`**7**
+
+**MapFromOne**: [4, 3, 2, 1, 1, 0]`"]:::green-->n22
+n14["`**14**
+
+**MapFromOne**: [4, 3, 2, 1, 1, 1]`"]-->n7
+n28["`**28**
+
+**MapFromOne**: [4, 3, 2, 1, 1, 2]`"]-->n14
+n9["`**9**
+
+**MapFromOne**: [4, 3, 2, 1, 1, 2, 0]`"]:::green-->n28
+n12["`**12**
+
+**MapFromOne**: [4, 1, 2]`"]-->n6
+n80["`**80**
+
+**MapFromOne**: [4, 4]`"]-->n40
+n160["`**160**
+
+**MapFromOne**: [4, 5]`"]-->n80
+n53["`**53**
+
+**MapFromOne**: [4, 5, 0]`"]:::green-->n160
+n106["`**106**
+
+**MapFromOne**: [4, 5, 1]`"]-->n53
+n35["`**35**
+
+**MapFromOne**: [4, 5, 1, 0]`"]:::green-->n106
+n70["`**70**
+
+**MapFromOne**: [4, 5, 1, 1]`"]-->n35
+n23["`**23**
+
+**MapFromOne**: [4, 5, 1, 1, 0]`"]:::green-->n70
+n46["`**46**
+
+**MapFromOne**: [4, 5, 1, 1, 1]`"]-->n23
+n15["`**15**
+
+**MapFromOne**: [4, 5, 1, 1, 1, 0]`"]:::green-->n46
+n18["`**18**
+
+**MapFromOne**: [4, 3, 2, 1, 1, 2, 1]`"]-->n9
+n44["`**44**
+
+**MapFromOne**: [4, 3, 2, 1, 2]`"]-->n22
+n88["`**88**
+
+**MapFromOne**: [4, 3, 2, 1, 3]`"]-->n44
+n29["`**29**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 0]`"]:::green-->n88
+n58["`**58**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 1]`"]-->n29
+n19["`**19**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 1, 0]`"]:::green-->n58
+n32["`**32**
+
+**MapFromOne**: [5]`"]-->n16
+n64["`**64**
+
+**MapFromOne**: [6]`"]-->n32
+n21["`**21**
+
+**MapFromOne**: [6, 0]`"]:::green-->n64
+n24["`**24**
+
+**MapFromOne**: [4, 1, 3]`"]-->n12
+n38["`**38**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 1, 1]`"]-->n19
+n76["`**76**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 1, 2]`"]-->n38
+n25["`**25**
+
+**MapFromOne**: [4, 3, 2, 1, 3, 1, 2, 0]`"]:::green-->n76

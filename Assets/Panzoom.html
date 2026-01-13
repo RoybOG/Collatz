@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.css"
+          />
+    <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.controls.css"
+          />
+    <style>
+      #myPanzoom {
+        /* max-width: 640px; */
+        height: 100%;
+        background: #eee;
+      }
+	  .f-controls {
+			position: sticky;
+	  }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="f-panzoom" id="myPanzoom">
+        <img class="f-panzoom__content" src="https://lipsum.app/id/5/1600x1200" width="1600" height="1200" alt="Sample image" />
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.32/dist/panzoom/panzoom.controls.umd.js"></script>
+    <script>
+      Panzoom(document.getElementById("myPanzoom"), { 
+        // Your custom options
+        Controls : {
+          display: [
+            "zoomIn",
+            "zoomOut",
+            
+            "moveLeft",
+            "moveRight",
+            "moveUp",
+            "moveDown",
+            "reset",
+            "toggleFS"
+          ]
+        }
+      }, {
+        Controls
+      }).init();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+

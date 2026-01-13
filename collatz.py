@@ -45,6 +45,30 @@ def collatz_sequence(n, max_tries=None):
 
 
 
+def collatz_sequence(n, max_tries=None):
+    """
+    Generator that yields the Collatz sequence starting from n.
+    If max_tries is provided, will stop after that many iterations.
+    """
+    tries = 0
+    current = n
+    
+    while current != 1:
+        yield current
+        
+        if max_tries and tries >= max_tries:
+            break
+            
+        if current % 2 == 0:
+            current = current // 2
+        else:
+            current = 3 * current + 1
+            
+        tries += 1
+    
+    yield current  # Yield the final 1
+
+
 # Example usage
 
 def log_sequence(n, max_tries=None, ):
@@ -88,6 +112,15 @@ def build_graph(itr):
     
     return G
 
+"""
+def add_num_to__graph_with_map(n,G):
+    pathGen = collatz_sequence(num)
+
+    def add_to_graph(num, l):
+        G.add_edge(*pair)
+            # Store both mod4 and mod6 values
+            G.nodes[pair[0]]['mod6'] = pair[0] % 6
+"""
 
 
 
